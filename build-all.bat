@@ -1,17 +1,20 @@
-@ECHO OFF
-REM Build Everything
+@ECHO ON
+REM Build script for rebuilding everything
 
 ECHO "Building everything..."
 
-
-PUSHD engine
+PUSHD Psyche
 CALL build.bat
 POPD
-IF %ERRORLEVEL% NEQ 0 (echo Error:%ERRORLEVEL% && exit)
+IF %ERRORLEVEL% NEQ 0 (
+    echo Error:%ERRORLEVEL% && exit /b
+)
 
-PUSHD testbed
+PUSHD Sandbox
 CALL build.bat
 POPD
-IF %ERRORLEVEL% NEQ 0 (echo Error:%ERRORLEVEL% && exit)
+IF %ERRORLEVEL% NEQ 0 (
+    echo Error:%ERRORLEVEL% && exit /b
+)
 
 ECHO "All assemblies built successfully."
