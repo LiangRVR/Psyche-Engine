@@ -4,6 +4,7 @@
       "name": "Linux",
       "includePath": [
         "${workspaceFolder}/Psyche/src/**",
+        "${workspaceFolder}/Psyche/vendor/spdlog/include",
         "${VULKAN_SDK}/include"
       ],
       "defines": [

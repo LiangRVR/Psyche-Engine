@@ -3,13 +3,13 @@
 set -x
 mkdir -p ../bin
 # Get a list of all the .cpp files.
-cppFilenames=$(find . -type f -name "*.cpp")
+cppFilenames=$(find src -type f -name "*.cpp")
 # echo "Files: " $cppFilenames
 assembly="sandbox"
 compilerFlags="-g -fdeclspec -fPIC"
 # -fms-extensions
 # -Wall -Werror
-includeFlags="-Isrc -I../Psyche/src/"
+includeFlags="-Isrc -I../Psyche/src/ -I../Psyche/vendor/spdlog/include"
 linkerFlags="-L../bin/ -lpsyche -lstdc++ -Wl,-rpath,."
 defines="-D_DEBUG -DPSC_IMPORT"
 echo "Building $assembly..."

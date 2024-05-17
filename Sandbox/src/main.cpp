@@ -19,3 +19,4 @@ PSYCHE::Application* PSYCHE::CreateApplication()
 {
     return new Sandbox();
 }
+
