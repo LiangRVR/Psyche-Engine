@@ -9,6 +9,9 @@ project "Psyche"
 
 	files {"src/**.h", "src/**.cpp"}
 
+	pchheader "psychepch.h"
+
+
 	defines {"PSC_BUILD_DLL"}
 	linkoptions {"-shared"}
 	includedirs {"src", "vendor/spdlog/include/"}
@@ -22,7 +25,7 @@ project "Psyche"
 		staticruntime "On"
 		systemversion "latest"
 		buildoptions {"-Wvarargs", "-Wall", "-Werror"}
-
+		pchsource "Psyche/src/psychepch.cpp"
 		defines {"PSC_PLATFORM_WINDOWS"}
 
 	filter "configurations:Debug"

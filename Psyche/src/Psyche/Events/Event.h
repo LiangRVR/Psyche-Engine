@@ -1,10 +1,6 @@
 #pragma once
 
-#include <iterator>
-
 #include "Psyche/Core.h"
-#include <string>
-#include <functional>
 
 #include <spdlog/fmt/bundled/core.h>
 #include <spdlog/fmt/bundled/format.h>

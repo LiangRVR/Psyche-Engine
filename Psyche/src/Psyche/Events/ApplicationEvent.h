@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace PSYCHE {
 
     class PSYCHE_API WindowResizeEvent : public Event
