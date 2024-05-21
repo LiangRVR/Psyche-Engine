@@ -1,5 +1,5 @@
-@ECHO OFF
-SetLocal EnableDelayedExpansion
+@ECHO ON
+REM Build script for engine
 
 REM Create bin directory if it doesn't exist
 IF NOT EXIST ../bin (
@@ -8,15 +8,19 @@ IF NOT EXIST ../bin (
 
 REM Get a list of all the .cpp files.
 SET cppFilenames=
-FOR /R %%f in (*.cpp) do (
+FOR /R src %%f in (*.cpp) do (
     SET cppFilenames=!cppFilenames! %%f
 )
 
+REM echo "Files:" %cppFilenames%
+
 SET assembly=psyche
-SET compilerFlags=-g -shared -fdeclspec -fPIC
-SET includeFlags=-Isrc -I%VULKAN_SDK%/Include
-SET linkerFlags=-lvulkan -lxcb -lX11 -lX11-xcb -lxkbcommon -L%VULKAN_SDK%/Lib -L/usr/X11R6/lib
+SET compilerFlags=-g -shared -Wvarargs -Wall -Werror
+REM -Wall -Werror
+SET includeFlags=-Isrc -I%VULKAN_SDK%/include -Ivendor/spdlog/include/
+SET linkerFlags=-luser32 -lvulkan -L%VULKAN_SDK%/Lib
 SET defines=-D_DEBUG -DPSC_BUILD_DLL
 
 ECHO "Building %assembly%..."
-clang++ %cppFilenames% %compilerFlags% -o ../bin/lib%assembly%.so %defines% %includeFlags% %linkerFlags%
+ECHO clang++ %cppFilenames% %compilerFlags% -o ../bin/%assembly%.dll %defines% %includeFlags% %linkerFlags%
+clang++ %cppFilenames% %compilerFlags% -o ../bin/%assembly%.dll %defines% %includeFlags% %linkerFlags%

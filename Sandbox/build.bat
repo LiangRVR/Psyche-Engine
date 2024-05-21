@@ -1,6 +1,5 @@
+@ECHO ON
 REM Build script for sandbox
-@ECHO OFF
-SetLocal EnableDelayedExpansion
 
 REM Create bin directory if it doesn't exist
 IF NOT EXIST ../bin (
@@ -9,17 +8,17 @@ IF NOT EXIST ../bin (
 
 REM Get a list of all the .cpp files.
 SET cppFilenames=
-FOR /R %%f in (*.cpp) do (
+FOR /R src %%f in (*.cpp) do (
     SET cppFilenames=!cppFilenames! %%f
 )
 
 REM echo "Files:" %cppFilenames%
 
 SET assembly=sandbox
-SET compilerFlags=-g -fdeclspec -fPIC
+SET compilerFlags=-g
 REM -Wall -Werror
-SET includeFlags=-Isrc -I../Psyche/src/
-SET linkerFlags=-L../bin/ -lpsyche -lstdc++ -Wl,-rpath,.
+SET includeFlags=-Isrc -I../Psyche/src/ -I../Psyche/vendor/spdlog/include
+SET linkerFlags=-L../bin/ -lpsyche -lstdc++
 SET defines=-D_DEBUG -DPSC_IMPORT
 
 ECHO "Building %assembly%..."

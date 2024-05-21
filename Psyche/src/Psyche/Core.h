@@ -2,7 +2,7 @@
 
 // Platform detection
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
-#define PCH_PLATFORM_WINDOWS 1
+#define PSC_PLATFORM_WINDOWS 1
 #ifndef _WIN64
 #error "64-bit is required on Windows!"
 #endif
@@ -53,3 +53,5 @@
 #define PSYCHE_API
 #endif
 #endif
+
+#define BIT(x) (1 << x)

@@ -8,10 +8,10 @@
       "name": "(Windows) Launch",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/bin/sandbox.exe",
+      "program": "${workspaceFolder}/bin/Sanbox/Sandbox.exe",
       "args": [],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/bin/",
+      "cwd": "${workspaceFolder}/bin/Sanbox/",
       "environment": [],
       "console": "newExternalWindow"
     },
@@ -19,10 +19,10 @@
       "name": "(Linux) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/bin/sandbox",
+      "program": "${workspaceFolder}/bin/Debug-linux-x86_64/Sandbox/Sandbox",
       "args": [],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/bin/",
+      "cwd": "${workspaceFolder}/bin/Debug-linux-x86_64/Sandbox",
       "environment": []
     }
   ]
