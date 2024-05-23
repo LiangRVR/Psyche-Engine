@@ -14,7 +14,16 @@ project "Psyche"
 
 	defines {"PSC_BUILD_DLL"}
 	linkoptions {"-shared"}
-	includedirs {"src", "vendor/spdlog/include/"}
+	includedirs {
+		"src",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.spdlog}",
+	}
+
+	links {
+		"GLFW",
+	}
+
 	filter "system:linux"
 		buildoptions {"-fdeclspec", "-fPIC"}
 		defines {"PSC_PLATFORM_LINUX"}

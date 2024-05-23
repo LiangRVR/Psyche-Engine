@@ -30,12 +30,10 @@ endif
 PCH = src/psychepch.h
 PCH_PLACEHOLDER = $(OBJDIR)/$(notdir $(PCH))
 GCH = $(PCH_PLACEHOLDER).gch
-INCLUDES += -Isrc -Ivendor/spdlog/include
+INCLUDES += -Isrc -Ivendor/GLFW/include -Ivendor/spdlog/include
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-LIBS +=
-LDDEPS +=
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname=libPsyche.so -shared
 LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
 define PREBUILDCMDS
@@ -50,6 +48,8 @@ OBJDIR = ../bin-int/Debug-linux-x86_64/Psyche
 DEFINES += -DPSC_BUILD_DLL -DPSC_PLATFORM_LINUX -DPSC_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -std=c++17 -fdeclspec -fPIC
+LIBS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a
+LDDEPS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a
 define POSTBUILDCMDS
 endef
 
@@ -60,6 +60,8 @@ OBJDIR = ../bin-int/Release-linux-x86_64/Psyche
 DEFINES += -DPSC_BUILD_DLL -DPSC_PLATFORM_LINUX -DPSC_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -std=c++17 -fdeclspec -fPIC
+LIBS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a
+LDDEPS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a
 define POSTBUILDCMDS
 endef
 
@@ -70,6 +72,8 @@ OBJDIR = ../bin-int/Dist-linux-x86_64/Psyche
 DEFINES += -DPSC_BUILD_DLL -DPSC_PLATFORM_LINUX -DPSC_DIST
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -std=c++17 -fdeclspec -fPIC
+LIBS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a
+LDDEPS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a
 define POSTBUILDCMDS
 	@echo Running postbuild commands
 	cp -rf ../bin/Dist-linux-x86_64/Psyche/libPsyche.so ../bin/Dist-linux-x86_64/Sandbox
@@ -89,9 +93,11 @@ OBJECTS :=
 
 GENERATED += $(OBJDIR)/Application.o
 GENERATED += $(OBJDIR)/Log.o
+GENERATED += $(OBJDIR)/PsycheWindow.o
 GENERATED += $(OBJDIR)/psychepch.o
 OBJECTS += $(OBJDIR)/Application.o
 OBJECTS += $(OBJDIR)/Log.o
+OBJECTS += $(OBJDIR)/PsycheWindow.o
 OBJECTS += $(OBJDIR)/psychepch.o
 
 # Rules
@@ -160,6 +166,9 @@ $(OBJDIR)/Application.o: src/Psyche/Application.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Log.o: src/Psyche/Log.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/PsycheWindow.o: src/PsycheWindow/PsycheWindow.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/psychepch.o: src/psychepch.cpp

@@ -6,22 +6,26 @@ project "Sandbox"
 	targetdir("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files
-	{
+	files {
 		"src/**.h",
 		"src/**.cpp"
 	}
 
-	includedirs
-	{
+	includedirs	{
 		"%{wks.location}/Psyche/vendor/spdlog/include",
 		"%{wks.location}/Psyche/src"
 	}
 
-	links
-	{
-		"Psyche"
+	links	{
+		"Psyche",
 	}
+
+	filter "system:linux"
+		links {
+			"GLFW",
+			"GLU",
+			"GL",
+			}
 
 	filter "system:linux"
 		buildoptions {"-fdeclspec", "-fPIC"}
@@ -32,8 +36,7 @@ project "Sandbox"
 		staticruntime "On"
 		systemversion "latest"
 
-		defines
-		{
+		defines {
 			"PSC_PLATFORM_WINDOWS"
 		}
 

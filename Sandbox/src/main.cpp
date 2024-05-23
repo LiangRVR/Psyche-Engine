@@ -1,22 +1,10 @@
 #include <Psyche.h>
 
-class Sandbox : public PSYCHE::Application
-{
-public:
-    Sandbox()
-    {
+class Sandbox : public Psyche::Application {
+  public:
+    Sandbox() {}
 
-    }
-
-    ~Sandbox()
-    {
-
-    }
-
+    ~Sandbox() {}
 };
 
-PSYCHE::Application* PSYCHE::CreateApplication()
-{
-    return new Sandbox();
-}
-
+Psyche::Application *Psyche::CreateApplication() { return new Sandbox(); }

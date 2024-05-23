@@ -2,32 +2,30 @@
 #include "Core.h"
 #include "spdlog/spdlog.h"
 
-
-namespace PSYCHE {
+namespace Psyche {
     class PSYCHE_API Log {
-    public:
+      public:
         static void Init();
 
-        inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
-        inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
-    private:
+        inline static std::shared_ptr<spdlog::logger> &GetCoreLogger() { return s_CoreLogger; }
+        inline static std::shared_ptr<spdlog::logger> &GetClientLogger() { return s_ClientLogger; }
 
-
+      private:
         static std::shared_ptr<spdlog::logger> s_CoreLogger;
         static std::shared_ptr<spdlog::logger> s_ClientLogger;
     };
-}
+} // namespace Psyche
 
-//Core logs macros
-#define PSC_CORE_TRACE(...)    ::PSYCHE::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define PSC_CORE_INFO(...)     ::PSYCHE::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define PSC_CORE_WARN(...)     ::PSYCHE::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define PSC_CORE_ERROR(...)    ::PSYCHE::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define PSC_CORE_FATAL(...)    ::PSYCHE::Log::GetCoreLogger()->critical(_ARGS__)
+// Core logs macros
+#define PSC_CORE_TRACE(...) ::Psyche::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define PSC_CORE_INFO(...)  ::Psyche::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define PSC_CORE_WARN(...)  ::Psyche::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define PSC_CORE_ERROR(...) ::Psyche::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define PSC_CORE_FATAL(...) ::Psyche::Log::GetCoreLogger()->critical(_ARGS__)
 
-//Client logs macros
-#define PSC_TRACE(...)         ::PSYCHE::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define PSC_INFO(...)          ::PSYCHE::Log::GetClientLogger()->info(__VA_ARGS__)
-#define PSC_WARN(...)          ::PSYCHE::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define PSC_ERROR(...)         ::PSYCHE::Log::GetClientLogger()->error(__VA_ARGS__)
-#define PSC_FATAL(...)         ::PSYCHE::Log::GetClientLogger()->critical(__VA_ARGS__)
+// Client logs macros
+#define PSC_TRACE(...) ::Psyche::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define PSC_INFO(...)  ::Psyche::Log::GetClientLogger()->info(__VA_ARGS__)
+#define PSC_WARN(...)  ::Psyche::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define PSC_ERROR(...) ::Psyche::Log::GetClientLogger()->error(__VA_ARGS__)
+#define PSC_FATAL(...) ::Psyche::Log::GetClientLogger()->critical(__VA_ARGS__)

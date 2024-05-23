@@ -9,14 +9,17 @@ ifndef verbose
 endif
 
 ifeq ($(config),debug)
+  GLFW_config = debug
   Psyche_config = debug
   Sandbox_config = debug
 
 else ifeq ($(config),release)
+  GLFW_config = release
   Psyche_config = release
   Sandbox_config = release
 
 else ifeq ($(config),dist)
+  GLFW_config = dist
   Psyche_config = dist
   Sandbox_config = dist
 
@@ -24,25 +27,32 @@ else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := Psyche Sandbox
+PROJECTS := GLFW Psyche Sandbox
 
 .PHONY: all clean help $(PROJECTS) 
 
 all: $(PROJECTS)
 
-Psyche:
+GLFW:
+ifneq (,$(GLFW_config))
+	@echo "==== Building GLFW ($(GLFW_config)) ===="
+	@${MAKE} --no-print-directory -C Psyche/vendor/GLFW -f Makefile config=$(GLFW_config)
+endif
+
+Psyche: GLFW
 ifneq (,$(Psyche_config))
 	@echo "==== Building Psyche ($(Psyche_config)) ===="
 	@${MAKE} --no-print-directory -C Psyche -f Makefile config=$(Psyche_config)
 endif
 
-Sandbox: Psyche
+Sandbox: Psyche GLFW
 ifneq (,$(Sandbox_config))
 	@echo "==== Building Sandbox ($(Sandbox_config)) ===="
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile config=$(Sandbox_config)
 endif
 
 clean:
+	@${MAKE} --no-print-directory -C Psyche/vendor/GLFW -f Makefile clean
 	@${MAKE} --no-print-directory -C Psyche -f Makefile clean
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile clean
 
@@ -57,6 +67,7 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
+	@echo "   GLFW"
 	@echo "   Psyche"
 	@echo "   Sandbox"
 	@echo ""
