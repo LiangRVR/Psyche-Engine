@@ -1,57 +1,48 @@
 #pragma once
 
 #include "Event.h"
+
 namespace Psyche {
 
-    class PSYCHE_API WindowResizeEvent : public Event {
+    class PSYCHE_API KeyEvent : public Event {
       public:
-        WindowResizeEvent(unsigned int width, unsigned int height)
-            : m_Width(width), m_Height(height) {}
+        inline int GetKeyCode() const { return m_KeyCode; }
 
-        inline unsigned int GetWidth() const { return m_Width; }
-        inline unsigned int GetHeight() const { return m_Height; }
+        EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
+      protected:
+        KeyEvent(int keycode) : m_KeyCode(keycode) {}
+
+        int m_KeyCode;
+    };
+
+    class PSYCHE_API KeyPressedEvent : public KeyEvent {
+      public:
+        KeyPressedEvent(int keycode, int repeatCount)
+            : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
+
+        inline int GetRepeatCount() const { return m_RepeatCount; }
 
         std::string ToString() const override {
             std::stringstream ss;
-            ss << "WindowResizeEvent: " << m_Width << ", " << m_Height;
+            ss << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatCount << " repeats)";
             return ss.str();
         }
 
-        EVENT_CLASS_TYPE(WindowResize)
-        EVENT_CLASS_CATEGORY(EventCategoryApplication)
+        EVENT_CLASS_TYPE(KeyPressed)
       private:
-        unsigned int m_Width, m_Height;
+        int m_RepeatCount;
     };
 
-    class PSYCHE_API WindowCloseEvent : public Event {
+    class PSYCHE_API KeyReleasedEvent : public KeyEvent {
       public:
-        WindowCloseEvent() {}
+        KeyReleasedEvent(int keycode) : KeyEvent(keycode) {}
 
-        EVENT_CLASS_TYPE(WindowClose)
-        EVENT_CLASS_CATEGORY(EventCategoryApplication)
-    };
+        std::string ToString() const override {
+            std::stringstream ss;
+            ss << "KeyReleasedEvent: " << m_KeyCode;
+            return ss.str();
+        }
 
-    class PSYCHE_API AppTickEvent : public Event {
-      public:
-        AppTickEvent() {}
-
-        EVENT_CLASS_TYPE(AppTick)
-        EVENT_CLASS_CATEGORY(EventCategoryApplication)
-    };
-
-    class PSYCHE_API AppUpdateEvent : public Event {
-      public:
-        AppUpdateEvent() {}
-
-        EVENT_CLASS_TYPE(AppUpdate)
-        EVENT_CLASS_CATEGORY(EventCategoryApplication)
-    };
-
-    class PSYCHE_API AppRenderEvent : public Event {
-      public:
-        AppRenderEvent() {}
-
-        EVENT_CLASS_TYPE(AppRender)
-        EVENT_CLASS_CATEGORY(EventCategoryApplication)
+        EVENT_CLASS_TYPE(KeyReleased)
     };
 } // namespace Psyche
