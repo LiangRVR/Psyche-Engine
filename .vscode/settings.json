@@ -74,5 +74,9 @@
     "typeinfo": "cpp",
     "variant": "cpp"
   },
-  "cSpell.words": ["spdlog"],
+  "cSpell.words": [
+    "Dloadproc",
+    "spdlog"
+  ],
+  "C_Cpp.errorSquiggles": "disabled",
 }

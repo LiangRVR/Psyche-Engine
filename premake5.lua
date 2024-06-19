@@ -12,9 +12,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "%{wks.location}/Psyche/vendor/GLFW/include/"
 IncludeDir["spdlog"] = "%{wks.location}/Psyche/vendor/spdlog/include/"
+IncludeDir["GLFW"] = "%{wks.location}/Psyche/vendor/GLFW/include/"
+IncludeDir["Glad"] = "%{wks.location}/Psyche/vendor/Glad/include/"
 
 include "Psyche/vendor/GLFW"
+include "Psyche/vendor/Glad"
 include "Psyche"
 include "Sandbox"

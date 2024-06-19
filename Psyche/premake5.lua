@@ -12,16 +12,22 @@ project "Psyche"
 	pchheader "psychepch.h"
 
 
-	defines {"PSC_BUILD_DLL"}
+	defines {
+		"PSC_BUILD_DLL",
+		"GLFW_INCLUDE_NONE"
+	}
+	
 	linkoptions {"-shared"}
 	includedirs {
 		"src",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.Glad}",
 	}
 
 	links {
 		"GLFW",
+		"Glad",
 	}
 
 	filter "system:linux"

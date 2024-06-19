@@ -30,7 +30,7 @@ endif
 PCH = src/psychepch.h
 PCH_PLACEHOLDER = $(OBJDIR)/$(notdir $(PCH))
 GCH = $(PCH_PLACEHOLDER).gch
-INCLUDES += -Isrc -Ivendor/GLFW/include -Ivendor/spdlog/include
+INCLUDES += -Isrc -Ivendor/GLFW/include -Ivendor/spdlog/include -Ivendor/Glad/include
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -45,11 +45,11 @@ ifeq ($(config),debug)
 TARGETDIR = ../bin/Debug-linux-x86_64/Psyche
 TARGET = $(TARGETDIR)/libPsyche.so
 OBJDIR = ../bin-int/Debug-linux-x86_64/Psyche
-DEFINES += -DPSC_BUILD_DLL -DPSC_PLATFORM_LINUX -DPSC_DEBUG
+DEFINES += -DPSC_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -std=c++17 -fdeclspec -fPIC
-LIBS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a
-LDDEPS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a
+LIBS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a
+LDDEPS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a
 define POSTBUILDCMDS
 endef
 
@@ -57,11 +57,11 @@ else ifeq ($(config),release)
 TARGETDIR = ../bin/Release-linux-x86_64/Psyche
 TARGET = $(TARGETDIR)/libPsyche.so
 OBJDIR = ../bin-int/Release-linux-x86_64/Psyche
-DEFINES += -DPSC_BUILD_DLL -DPSC_PLATFORM_LINUX -DPSC_RELEASE
+DEFINES += -DPSC_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -std=c++17 -fdeclspec -fPIC
-LIBS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a
-LDDEPS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a
+LIBS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a
+LDDEPS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a
 define POSTBUILDCMDS
 endef
 
@@ -69,11 +69,11 @@ else ifeq ($(config),dist)
 TARGETDIR = ../bin/Dist-linux-x86_64/Psyche
 TARGET = $(TARGETDIR)/libPsyche.so
 OBJDIR = ../bin-int/Dist-linux-x86_64/Psyche
-DEFINES += -DPSC_BUILD_DLL -DPSC_PLATFORM_LINUX -DPSC_DIST
+DEFINES += -DPSC_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_DIST
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -std=c++17 -fdeclspec -fPIC
-LIBS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a
-LDDEPS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a
+LIBS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a
+LDDEPS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a
 define POSTBUILDCMDS
 	@echo Running postbuild commands
 	cp -rf ../bin/Dist-linux-x86_64/Psyche/libPsyche.so ../bin/Dist-linux-x86_64/Sandbox

@@ -4,7 +4,10 @@
       "name": "Linux",
       "includePath": [
         "${workspaceFolder}/Psyche/src/**",
-        "${workspaceFolder}/Psyche/vendor/spdlog/include"
+        "${workspaceFolder}/Psyche/vendor/spdlog/include",
+        "${workspaceFolder}/Psyche/vendor/GLFW/include",
+        "${workspaceFolder}/Psyche/vendor/Glad/include",
+        "${workspaceFolder}/Psyche/vendor/Glad/src/**"
       ],
       "forcedInclude": ["${workspaceFolder}/Psyche/src/psychepch.h"],
       "compilerPath": "/usr/bin/clang", // Path to your Clang compiler
