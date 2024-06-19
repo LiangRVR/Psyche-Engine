@@ -42,12 +42,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "PSC_DEBUG"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "PSC_RELEASE"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "PSC_DIST"
+		runtime "Release"
 		optimize "On"
