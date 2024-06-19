@@ -13,6 +13,7 @@ class Sandbox : public Psyche::Application {
   public:
     Sandbox() {
         PushLayer(new ExampleLayer());
+        PushOverlay(new Psyche::ImGuiLayer());
     }
 
     ~Sandbox() {}

@@ -16,18 +16,20 @@ project "Psyche"
 		"PSC_BUILD_DLL",
 		"GLFW_INCLUDE_NONE"
 	}
-	
+
 	linkoptions {"-shared"}
 	includedirs {
 		"src",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links {
 		"GLFW",
 		"Glad",
+		"ImGui"
 	}
 
 	filter "system:linux"

@@ -20,12 +20,10 @@ project "Sandbox"
 		"Psyche",
 	}
 
-	filter "system:linux"
-		links {
-			"GLFW",
-			"GLU",
-			"GL",
-			}
+	links {
+		"GLFW",
+		"Glad",
+	}
 
 	filter "system:linux"
 		buildoptions {"-fdeclspec", "-fPIC"}

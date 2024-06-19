@@ -78,5 +78,4 @@
     "Dloadproc",
     "spdlog"
   ],
-  "C_Cpp.errorSquiggles": "disabled",
 }

@@ -11,18 +11,21 @@ endif
 ifeq ($(config),debug)
   GLFW_config = debug
   Glad_config = debug
+  ImGui_config = debug
   Psyche_config = debug
   Sandbox_config = debug
 
 else ifeq ($(config),release)
   GLFW_config = release
   Glad_config = release
+  ImGui_config = release
   Psyche_config = release
   Sandbox_config = release
 
 else ifeq ($(config),dist)
   GLFW_config = dist
   Glad_config = dist
+  ImGui_config = dist
   Psyche_config = dist
   Sandbox_config = dist
 
@@ -30,7 +33,7 @@ else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := GLFW Glad Psyche Sandbox
+PROJECTS := GLFW Glad ImGui Psyche Sandbox
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -48,13 +51,19 @@ ifneq (,$(Glad_config))
 	@${MAKE} --no-print-directory -C Psyche/vendor/Glad -f Makefile config=$(Glad_config)
 endif
 
-Psyche: GLFW Glad
+ImGui:
+ifneq (,$(ImGui_config))
+	@echo "==== Building ImGui ($(ImGui_config)) ===="
+	@${MAKE} --no-print-directory -C Psyche/vendor/imgui -f Makefile config=$(ImGui_config)
+endif
+
+Psyche: GLFW Glad ImGui
 ifneq (,$(Psyche_config))
 	@echo "==== Building Psyche ($(Psyche_config)) ===="
 	@${MAKE} --no-print-directory -C Psyche -f Makefile config=$(Psyche_config)
 endif
 
-Sandbox: Psyche GLFW
+Sandbox: Psyche GLFW Glad
 ifneq (,$(Sandbox_config))
 	@echo "==== Building Sandbox ($(Sandbox_config)) ===="
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile config=$(Sandbox_config)
@@ -63,6 +72,7 @@ endif
 clean:
 	@${MAKE} --no-print-directory -C Psyche/vendor/GLFW -f Makefile clean
 	@${MAKE} --no-print-directory -C Psyche/vendor/Glad -f Makefile clean
+	@${MAKE} --no-print-directory -C Psyche/vendor/imgui -f Makefile clean
 	@${MAKE} --no-print-directory -C Psyche -f Makefile clean
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile clean
 
@@ -79,6 +89,7 @@ help:
 	@echo "   clean"
 	@echo "   GLFW"
 	@echo "   Glad"
+	@echo "   ImGui"
 	@echo "   Psyche"
 	@echo "   Sandbox"
 	@echo ""
