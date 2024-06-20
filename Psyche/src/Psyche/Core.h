@@ -85,3 +85,5 @@
 #    define PSC_ASSERT(x, ...)
 #    define PSC_CORE_ASSERT(x, ...)
 #endif
+
+#define PSC_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
