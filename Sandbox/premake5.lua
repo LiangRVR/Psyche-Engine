@@ -2,6 +2,8 @@ project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
+	staticruntime "off"
+
 
 	targetdir("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -20,18 +22,12 @@ project "Sandbox"
 		"Psyche",
 	}
 
-	links {
-		"GLFW",
-		"Glad",
-	}
-
 	filter "system:linux"
 		buildoptions {"-fdeclspec", "-fPIC"}
 		defines {"PSC_PLATFORM_LINUX"}
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines {

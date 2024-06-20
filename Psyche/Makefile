@@ -45,7 +45,7 @@ ifeq ($(config),debug)
 TARGETDIR = ../bin/Debug-linux-x86_64/Psyche
 TARGET = $(TARGETDIR)/libPsyche.so
 OBJDIR = ../bin-int/Debug-linux-x86_64/Psyche
-DEFINES += -DPSC_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_DEBUG
+DEFINES += -DPSC_BUILD_DLL -DHZ_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -std=c++17 -fdeclspec -fPIC
 LIBS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a
@@ -57,7 +57,7 @@ else ifeq ($(config),release)
 TARGETDIR = ../bin/Release-linux-x86_64/Psyche
 TARGET = $(TARGETDIR)/libPsyche.so
 OBJDIR = ../bin-int/Release-linux-x86_64/Psyche
-DEFINES += -DPSC_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_RELEASE
+DEFINES += -DPSC_BUILD_DLL -DHZ_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -std=c++17 -fdeclspec -fPIC
 LIBS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a
@@ -69,14 +69,14 @@ else ifeq ($(config),dist)
 TARGETDIR = ../bin/Dist-linux-x86_64/Psyche
 TARGET = $(TARGETDIR)/libPsyche.so
 OBJDIR = ../bin-int/Dist-linux-x86_64/Psyche
-DEFINES += -DPSC_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_DIST
+DEFINES += -DPSC_BUILD_DLL -DHZ_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_DIST
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -std=c++17 -fdeclspec -fPIC
 LIBS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a
 LDDEPS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a
 define POSTBUILDCMDS
 	@echo Running postbuild commands
-	cp -rf ../bin/Dist-linux-x86_64/Psyche/libPsyche.so ../bin/Dist-linux-x86_64/Sandbox
+	cp -rf ../bin/Dist-linux-x86_64/Psyche/libPsyche.so "../bin/Dist-linux-x86_64/Sandbox/"
 endef
 
 endif
@@ -98,6 +98,7 @@ GENERATED += $(OBJDIR)/Layer.o
 GENERATED += $(OBJDIR)/LayerStack.o
 GENERATED += $(OBJDIR)/Log.o
 GENERATED += $(OBJDIR)/PsycheWindow.o
+GENERATED += $(OBJDIR)/PsycheWindowInput.o
 GENERATED += $(OBJDIR)/psychepch.o
 OBJECTS += $(OBJDIR)/Application.o
 OBJECTS += $(OBJDIR)/ImGuiLayer.o
@@ -106,6 +107,7 @@ OBJECTS += $(OBJDIR)/Layer.o
 OBJECTS += $(OBJDIR)/LayerStack.o
 OBJECTS += $(OBJDIR)/Log.o
 OBJECTS += $(OBJDIR)/PsycheWindow.o
+OBJECTS += $(OBJDIR)/PsycheWindowInput.o
 OBJECTS += $(OBJDIR)/psychepch.o
 
 # Rules
@@ -189,6 +191,9 @@ $(OBJDIR)/Log.o: src/Psyche/Log.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/PsycheWindow.o: src/PsycheWindow/PsycheWindow.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/PsycheWindowInput.o: src/PsycheWindow/PsycheWindowInput.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/psychepch.o: src/psychepch.cpp

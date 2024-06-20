@@ -2,7 +2,7 @@ project "Psyche"
 	kind "SharedLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "On"
+	staticruntime "off"
 
 	targetdir("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -32,6 +32,12 @@ project "Psyche"
 		"ImGui"
 	}
 
+	defines
+		{
+			"HZ_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
+		}
+
 	filter "system:linux"
 		buildoptions {"-fdeclspec", "-fPIC"}
 		defines {"PSC_PLATFORM_LINUX"}
@@ -39,7 +45,6 @@ project "Psyche"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 		buildoptions {"-Wvarargs", "-Wall", "-Werror"}
 		pchsource "Psyche/src/psychepch.cpp"
@@ -62,5 +67,5 @@ project "Psyche"
 
 	postbuildcommands
 	{
-		("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+		("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 	}

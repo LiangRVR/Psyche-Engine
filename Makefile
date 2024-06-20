@@ -35,9 +35,11 @@ endif
 
 PROJECTS := GLFW Glad ImGui Psyche Sandbox
 
-.PHONY: all clean help $(PROJECTS) 
+.PHONY: all clean help $(PROJECTS) Dependencies
 
 all: $(PROJECTS)
+
+Dependencies: GLFW Glad ImGui
 
 GLFW:
 ifneq (,$(GLFW_config))
@@ -63,7 +65,7 @@ ifneq (,$(Psyche_config))
 	@${MAKE} --no-print-directory -C Psyche -f Makefile config=$(Psyche_config)
 endif
 
-Sandbox: Psyche GLFW Glad
+Sandbox: Psyche
 ifneq (,$(Sandbox_config))
 	@echo "==== Building Sandbox ($(Sandbox_config)) ===="
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile config=$(Sandbox_config)

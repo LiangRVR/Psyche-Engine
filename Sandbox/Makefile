@@ -47,8 +47,8 @@ OBJDIR = ../bin-int/Debug-linux-x86_64/Sandbox
 DEFINES += -DPSC_PLATFORM_LINUX -DPSC_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17 -fdeclspec -fPIC
-LIBS += ../bin/Debug-linux-x86_64/Psyche/libPsyche.so ../Psyche/vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a
-LDDEPS += ../bin/Debug-linux-x86_64/Psyche/libPsyche.so ../Psyche/vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a
+LIBS += ../bin/Debug-linux-x86_64/Psyche/libPsyche.so
+LDDEPS += ../bin/Debug-linux-x86_64/Psyche/libPsyche.so
 
 else ifeq ($(config),release)
 TARGETDIR = ../bin/Release-linux-x86_64/Sandbox
@@ -57,8 +57,8 @@ OBJDIR = ../bin-int/Release-linux-x86_64/Sandbox
 DEFINES += -DPSC_PLATFORM_LINUX -DPSC_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17 -fdeclspec -fPIC
-LIBS += ../bin/Release-linux-x86_64/Psyche/libPsyche.so ../Psyche/vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a
-LDDEPS += ../bin/Release-linux-x86_64/Psyche/libPsyche.so ../Psyche/vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a
+LIBS += ../bin/Release-linux-x86_64/Psyche/libPsyche.so
+LDDEPS += ../bin/Release-linux-x86_64/Psyche/libPsyche.so
 
 else ifeq ($(config),dist)
 TARGETDIR = ../bin/Dist-linux-x86_64/Sandbox
@@ -67,8 +67,8 @@ OBJDIR = ../bin-int/Dist-linux-x86_64/Sandbox
 DEFINES += -DPSC_PLATFORM_LINUX -DPSC_DIST
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fdeclspec -fPIC
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17 -fdeclspec -fPIC
-LIBS += ../bin/Dist-linux-x86_64/Psyche/libPsyche.so ../Psyche/vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a
-LDDEPS += ../bin/Dist-linux-x86_64/Psyche/libPsyche.so ../Psyche/vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a
+LIBS += ../bin/Dist-linux-x86_64/Psyche/libPsyche.so
+LDDEPS += ../bin/Dist-linux-x86_64/Psyche/libPsyche.so
 
 endif
 

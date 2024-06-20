@@ -8,12 +8,12 @@
         "${workspaceFolder}/Psyche/vendor/GLFW/include",
         "${workspaceFolder}/Psyche/vendor/Glad/include",
         "${workspaceFolder}/Psyche/vendor/Glad/src/**",
-        "${workspaceFolder}/Psyche/vendor/imgui",
+        "${workspaceFolder}/Psyche/vendor/imgui"
       ],
       "forcedInclude": ["${workspaceFolder}/Psyche/src/psychepch.h"],
       "compilerPath": "/usr/bin/clang", // Path to your Clang compiler
       "intelliSenseMode": "clang-x64", // IntelliSense mode for Clang
-      "cStandard": "c11", // C standard version
+      "cStandard": "c17", // C standard version
       "cppStandard": "c++17" // C++ standard version
     },
     {
@@ -25,7 +25,7 @@
       "forcedInclude": ["${workspaceFolder}/Psyche/src/psychepch.h"],
       "compilerPath": "/usr/bin/clang", // Path to your Clang compiler
       "intelliSenseMode": "clang-x64", // IntelliSense mode for Clang
-      "cStandard": "c11", // C standard version
+      "cStandard": "c17", // C standard version
       "cppStandard": "c++17" // C++ standard version
     }
   ],
