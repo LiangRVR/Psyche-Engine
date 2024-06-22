@@ -14,7 +14,8 @@ project "Sandbox"
 	}
 
 	includedirs	{
-		"%{wks.location}/Psyche/vendor/spdlog/include",
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.glm}",
 		"%{wks.location}/Psyche/src"
 	}
 

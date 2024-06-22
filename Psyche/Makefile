@@ -30,7 +30,7 @@ endif
 PCH = src/psychepch.h
 PCH_PLACEHOLDER = $(OBJDIR)/$(notdir $(PCH))
 GCH = $(PCH_PLACEHOLDER).gch
-INCLUDES += -Isrc -Ivendor/GLFW/include -Ivendor/spdlog/include -Ivendor/Glad/include -Ivendor/imgui
+INCLUDES += -Isrc -Ivendor/GLFW/include -Ivendor/spdlog/include -Ivendor/Glad/include -Ivendor/imgui -Ivendor/glm
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)

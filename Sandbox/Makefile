@@ -27,7 +27,7 @@ endif
 ifeq ($(origin AR), default)
   AR = ar
 endif
-INCLUDES += -I../Psyche/vendor/spdlog/include -I../Psyche/src
+INCLUDES += -I../Psyche/vendor/spdlog/include -I../Psyche/vendor/glm -I../Psyche/src
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
