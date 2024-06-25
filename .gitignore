@@ -1,4 +1,6 @@
 bin/
 bin-int/
 
+clear-build.py
+
 Makefile

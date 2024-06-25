@@ -65,7 +65,7 @@ ifneq (,$(Psyche_config))
 	@${MAKE} --no-print-directory -C Psyche -f Makefile config=$(Psyche_config)
 endif
 
-Sandbox: Psyche
+Sandbox: Psyche GLFW Glad ImGui
 ifneq (,$(Sandbox_config))
 	@echo "==== Building Sandbox ($(Sandbox_config)) ===="
 	@${MAKE} --no-print-directory -C Sandbox -f Makefile config=$(Sandbox_config)

@@ -34,50 +34,44 @@ INCLUDES += -Isrc -Ivendor/GLFW/include -Ivendor/spdlog/include -Ivendor/Glad/in
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname=libPsyche.so -shared
-LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
+LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
 define PREBUILDCMDS
 endef
 define PRELINKCMDS
 endef
+define POSTBUILDCMDS
+endef
 
 ifeq ($(config),debug)
 TARGETDIR = ../bin/Debug-linux-x86_64/Psyche
-TARGET = $(TARGETDIR)/libPsyche.so
+TARGET = $(TARGETDIR)/libPsyche.a
 OBJDIR = ../bin-int/Debug-linux-x86_64/Psyche
-DEFINES += -DPSC_BUILD_DLL -DHZ_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_DEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -fdeclspec -fPIC
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -std=c++17 -fdeclspec -fPIC
+DEFINES += -D_CRT_SECURE_NO_WARNINGS -DPSC_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_DEBUG
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
 LIBS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a
 LDDEPS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a
-define POSTBUILDCMDS
-endef
 
 else ifeq ($(config),release)
 TARGETDIR = ../bin/Release-linux-x86_64/Psyche
-TARGET = $(TARGETDIR)/libPsyche.so
+TARGET = $(TARGETDIR)/libPsyche.a
 OBJDIR = ../bin-int/Release-linux-x86_64/Psyche
-DEFINES += -DPSC_BUILD_DLL -DHZ_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_RELEASE
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -fdeclspec -fPIC
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -std=c++17 -fdeclspec -fPIC
+DEFINES += -D_CRT_SECURE_NO_WARNINGS -DPSC_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_RELEASE
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
 LIBS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a
 LDDEPS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a
-define POSTBUILDCMDS
-endef
 
 else ifeq ($(config),dist)
 TARGETDIR = ../bin/Dist-linux-x86_64/Psyche
-TARGET = $(TARGETDIR)/libPsyche.so
+TARGET = $(TARGETDIR)/libPsyche.a
 OBJDIR = ../bin-int/Dist-linux-x86_64/Psyche
-DEFINES += -DPSC_BUILD_DLL -DHZ_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_DIST
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -fdeclspec -fPIC
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fPIC -std=c++17 -fdeclspec -fPIC
+DEFINES += -D_CRT_SECURE_NO_WARNINGS -DPSC_BUILD_DLL -DGLFW_INCLUDE_NONE -DPSC_PLATFORM_LINUX -DPSC_DIST
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
 LIBS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a
 LDDEPS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a
-define POSTBUILDCMDS
-	@echo Running postbuild commands
-	cp -rf ../bin/Dist-linux-x86_64/Psyche/libPsyche.so "../bin/Dist-linux-x86_64/Sandbox/"
-endef
 
 endif
 
@@ -92,8 +86,8 @@ GENERATED :=
 OBJECTS :=
 
 GENERATED += $(OBJDIR)/Application.o
+GENERATED += $(OBJDIR)/ImGuiBuild.o
 GENERATED += $(OBJDIR)/ImGuiLayer.o
-GENERATED += $(OBJDIR)/ImGuiOpenGLRenderer.o
 GENERATED += $(OBJDIR)/Layer.o
 GENERATED += $(OBJDIR)/LayerStack.o
 GENERATED += $(OBJDIR)/Log.o
@@ -101,8 +95,8 @@ GENERATED += $(OBJDIR)/PsycheWindow.o
 GENERATED += $(OBJDIR)/PsycheWindowInput.o
 GENERATED += $(OBJDIR)/psychepch.o
 OBJECTS += $(OBJDIR)/Application.o
+OBJECTS += $(OBJDIR)/ImGuiBuild.o
 OBJECTS += $(OBJDIR)/ImGuiLayer.o
-OBJECTS += $(OBJDIR)/ImGuiOpenGLRenderer.o
 OBJECTS += $(OBJDIR)/Layer.o
 OBJECTS += $(OBJDIR)/LayerStack.o
 OBJECTS += $(OBJDIR)/Log.o
@@ -172,10 +166,10 @@ endif
 # File Rules
 # #############################################
 
-$(OBJDIR)/ImGuiOpenGLRenderer.o: src/Platform/OpenGL/ImGuiOpenGLRenderer.cpp
+$(OBJDIR)/Application.o: src/Psyche/Application.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Application.o: src/Psyche/Application.cpp
+$(OBJDIR)/ImGuiBuild.o: src/Psyche/ImGui/ImGuiBuild.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/ImGuiLayer.o: src/Psyche/ImGui/ImGuiLayer.cpp

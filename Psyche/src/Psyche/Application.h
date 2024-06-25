@@ -6,6 +6,8 @@
 #include "LayerStack.h"
 #include "Window.h"
 
+#include "Psyche/ImGui/ImGuiLayer.h"
+
 namespace Psyche {
 
     class PSYCHE_API Application {
@@ -28,6 +30,7 @@ namespace Psyche {
         bool OnWindowClose(WindowCloseEvent &e);
 
         std::unique_ptr<Window> m_Window;
+        ImGuiLayer *m_ImGuiLayer;
         bool m_Running = true;
         LayerStack m_LayerStack;
 

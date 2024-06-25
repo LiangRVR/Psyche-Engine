@@ -1,5 +1,7 @@
 #include <Psyche.h>
 
+#include "imgui/imgui.h"
+
 class ExampleLayer : public Psyche::Layer {
   public:
     ExampleLayer() : Layer("Example") {
@@ -10,6 +12,12 @@ class ExampleLayer : public Psyche::Layer {
         if (Psyche::Input::IsKeyPressed(PSC_KEY_TAB))
             PSC_TRACE("Tab key is pressed (poll)!");
         ;
+    }
+
+    virtual void OnImGuiRender() override {
+        ImGui::Begin("Test");
+        ImGui::Text("Hello World");
+        ImGui::End();
     }
 
     void OnEvent(Psyche::Event &event) override {
@@ -26,7 +34,6 @@ class Sandbox : public Psyche::Application {
   public:
     Sandbox() {
         PushLayer(new ExampleLayer());
-        PushOverlay(new Psyche::ImGuiLayer());
     }
 
     ~Sandbox() {}

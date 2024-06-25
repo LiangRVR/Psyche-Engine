@@ -2,7 +2,7 @@ project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "off"
+	staticruntime "on"
 
 
 	targetdir("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
@@ -16,19 +16,24 @@ project "Sandbox"
 	includedirs	{
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glm}",
-		"%{wks.location}/Psyche/src"
+		"%{wks.location}/Psyche/src",
+		"%{wks.location}/Psyche/vendor"
 	}
 
 	links	{
-		"Psyche",
+		"Psyche"
 	}
 
 	filter "system:linux"
-		buildoptions {"-fdeclspec", "-fPIC"}
+		--[[ buildoptions {"-fdeclspec", "-fPIC"} ]]
 		defines {"PSC_PLATFORM_LINUX"}
+		links{
+			"GLFW",
+			"Glad",
+			"ImGui"
+		}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines {
@@ -38,14 +43,14 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "PSC_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "PSC_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "PSC_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"

@@ -38,20 +38,24 @@
 #    error "Unknown platform!"
 #endif
 
-#ifdef PSC_BUILD_DLL
+#ifdef PSC_DYNAMIC_LINK
+#    ifdef PSC_BUILD_DLL
 // Exports
-#    ifdef _MSC_VER
-#        define PSYCHE_API __declspec(dllexport)
+#        ifdef _MSC_VER
+#            define PSYCHE_API __declspec(dllexport)
+#        else
+#            define PSYCHE_API __attribute__((visibility("default")))
+#        endif
 #    else
-#        define PSYCHE_API __attribute__((visibility("default")))
+// Imports
+#        ifdef _MSC_VER
+#            define PSYCHE_API __declspec(dllimport)
+#        else
+#            define PSYCHE_API
+#        endif
 #    endif
 #else
-// Imports
-#    ifdef _MSC_VER
-#        define PSYCHE_API __declspec(dllimport)
-#    else
-#        define PSYCHE_API
-#    endif
+#    define PSYCHE_API
 #endif
 
 #define BIT(x) (1 << x)
@@ -71,15 +75,15 @@
 #endif
 
 #ifdef PSC_ENABLE_ASSERTS
-#    define PSC_ASSERT(x, ...)                                                                     \
-        if (!(x)) {                                                                                \
-            PSC_ERROR("Assertion Failed: {0}", __VA_ARGS__);                                       \
-            PSC_DEBUGBREAK();                                                                      \
+#    define PSC_ASSERT(x, ...)                                                                                         \
+        if (!(x)) {                                                                                                    \
+            PSC_ERROR("Assertion Failed: {0}", __VA_ARGS__);                                                           \
+            PSC_DEBUGBREAK();                                                                                          \
         }
-#    define PSC_CORE_ASSERT(x, ...)                                                                \
-        if (!(x)) {                                                                                \
-            PSC_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__);                                  \
-            PSC_DEBUGBREAK();                                                                      \
+#    define PSC_CORE_ASSERT(x, ...)                                                                                    \
+        if (!(x)) {                                                                                                    \
+            PSC_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__);                                                      \
+            PSC_DEBUGBREAK();                                                                                          \
         }
 #else
 #    define PSC_ASSERT(x, ...)

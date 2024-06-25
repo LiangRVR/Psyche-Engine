@@ -27,11 +27,11 @@ endif
 ifeq ($(origin AR), default)
   AR = ar
 endif
-INCLUDES += -I../Psyche/vendor/spdlog/include -I../Psyche/vendor/glm -I../Psyche/src
+INCLUDES += -I../Psyche/vendor/spdlog/include -I../Psyche/vendor/glm -I../Psyche/src -I../Psyche/vendor
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -Wl,-rpath,'$$ORIGIN/../Psyche' -m64
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
 define PREBUILDCMDS
 endef
@@ -45,30 +45,30 @@ TARGETDIR = ../bin/Debug-linux-x86_64/Sandbox
 TARGET = $(TARGETDIR)/Sandbox
 OBJDIR = ../bin-int/Debug-linux-x86_64/Sandbox
 DEFINES += -DPSC_PLATFORM_LINUX -DPSC_DEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -fdeclspec -fPIC
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17 -fdeclspec -fPIC
-LIBS += ../bin/Debug-linux-x86_64/Psyche/libPsyche.so
-LDDEPS += ../bin/Debug-linux-x86_64/Psyche/libPsyche.so
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
+LIBS += ../bin/Debug-linux-x86_64/Psyche/libPsyche.a ../Psyche/vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a ../Psyche/vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a
+LDDEPS += ../bin/Debug-linux-x86_64/Psyche/libPsyche.a ../Psyche/vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a ../Psyche/vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a
 
 else ifeq ($(config),release)
 TARGETDIR = ../bin/Release-linux-x86_64/Sandbox
 TARGET = $(TARGETDIR)/Sandbox
 OBJDIR = ../bin-int/Release-linux-x86_64/Sandbox
 DEFINES += -DPSC_PLATFORM_LINUX -DPSC_RELEASE
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fdeclspec -fPIC
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17 -fdeclspec -fPIC
-LIBS += ../bin/Release-linux-x86_64/Psyche/libPsyche.so
-LDDEPS += ../bin/Release-linux-x86_64/Psyche/libPsyche.so
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
+LIBS += ../bin/Release-linux-x86_64/Psyche/libPsyche.a ../Psyche/vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a ../Psyche/vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a
+LDDEPS += ../bin/Release-linux-x86_64/Psyche/libPsyche.a ../Psyche/vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a ../Psyche/vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a
 
 else ifeq ($(config),dist)
 TARGETDIR = ../bin/Dist-linux-x86_64/Sandbox
 TARGET = $(TARGETDIR)/Sandbox
 OBJDIR = ../bin-int/Dist-linux-x86_64/Sandbox
 DEFINES += -DPSC_PLATFORM_LINUX -DPSC_DIST
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fdeclspec -fPIC
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17 -fdeclspec -fPIC
-LIBS += ../bin/Dist-linux-x86_64/Psyche/libPsyche.so
-LDDEPS += ../bin/Dist-linux-x86_64/Psyche/libPsyche.so
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
+LIBS += ../bin/Dist-linux-x86_64/Psyche/libPsyche.a ../Psyche/vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a ../Psyche/vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a
+LDDEPS += ../bin/Dist-linux-x86_64/Psyche/libPsyche.a ../Psyche/vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../Psyche/vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a ../Psyche/vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a
 
 endif
 

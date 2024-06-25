@@ -1,11 +1,14 @@
 project "Psyche"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "off"
+	staticruntime "on"
 
 	targetdir("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
+
+	pchheader "psychepch.h"
+	pchsource "Psyche/src/psychepch.cpp"
 
 	files {
 		"src/**.h",
@@ -14,15 +17,12 @@ project "Psyche"
 		"vendor/glm/glm/**.inl"
 	}
 
-	pchheader "psychepch.h"
-
-
-	defines {
+	defines	{
+		"_CRT_SECURE_NO_WARNINGS",
 		"PSC_BUILD_DLL",
 		"GLFW_INCLUDE_NONE"
 	}
 
-	linkoptions {"-shared"}
 	includedirs {
 		"src",
 		"%{IncludeDir.GLFW}",
@@ -38,40 +38,27 @@ project "Psyche"
 		"ImGui"
 	}
 
-	defines
-		{
-			"HZ_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
-		}
-
 	filter "system:linux"
-		buildoptions {"-fdeclspec", "-fPIC"}
+		--[[ buildoptions {"-fdeclspec", "-fPIC"} ]]
 		defines {"PSC_PLATFORM_LINUX"}
 
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
-		buildoptions {"-Wvarargs", "-Wall", "-Werror"}
-		pchsource "Psyche/src/psychepch.cpp"
+		--[[ buildoptions {"-Wvarargs", "-Wall", "-Werror"} ]]
 		defines {"PSC_PLATFORM_WINDOWS"}
 
 	filter "configurations:Debug"
 		defines "PSC_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "PSC_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "PSC_DIST"
 		runtime "Release"
-		optimize "On"
-
-	postbuildcommands
-	{
-		("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-	}
+		optimize "on"
