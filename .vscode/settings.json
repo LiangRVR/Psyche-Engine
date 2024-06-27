@@ -80,4 +80,12 @@
     "OPENGL",
     "spdlog"
   ],
+  "makefile.launchConfigurations": [
+    {
+      "name": "Launch",
+      "cwd": "${workspaceFolder}/bin/Debug-linux-x86_64/Sandbox",
+      "binaryPath": "${workspaceFolder}/bin/Debug-linux-x86_64/Sandbox/Sandbox",
+      "binaryArgs": []
+    }
+  ]
 }

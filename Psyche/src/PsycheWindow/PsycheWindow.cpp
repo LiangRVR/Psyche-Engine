@@ -5,7 +5,8 @@
 #include "Psyche/Events/KeyEvent.h"
 #include "Psyche/Events/MouseEvent.h"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
+
 namespace Psyche {
 
     static bool s_GLFWInitialized = false;
@@ -35,11 +36,11 @@ namespace Psyche {
             s_GLFWInitialized = true;
         }
 
-        m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(),
-                                    nullptr, nullptr);
-        glfwMakeContextCurrent(m_Window);
-        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        PSC_CORE_ASSERT(status, "Failed to initialize Glad!");
+        m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+
+        m_Context = new OpenGLContext(m_Window);
+        m_Context->Init();
+
         glfwSetWindowUserPointer(m_Window, &m_Data);
         SetVSync(true);
 
@@ -59,8 +60,7 @@ namespace Psyche {
             data.EventCallback(event);
         });
 
-        glfwSetKeyCallback(m_Window,
-                           [](GLFWwindow *window, int key, int scancode, int action, int mods) {
+        glfwSetKeyCallback(m_Window, [](GLFWwindow *window, int key, int scancode, int action, int mods) {
             WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
 
             switch (action) {
@@ -89,8 +89,7 @@ namespace Psyche {
             data.EventCallback(event);
         });
 
-        glfwSetMouseButtonCallback(m_Window,
-                                   [](GLFWwindow *window, int button, int action, int mods) {
+        glfwSetMouseButtonCallback(m_Window, [](GLFWwindow *window, int button, int action, int mods) {
             WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
 
             switch (action) {
@@ -126,7 +125,7 @@ namespace Psyche {
 
     void PsycheWindow::OnUpdate() {
         glfwPollEvents();
-        glfwSwapBuffers(m_Window);
+        m_Context->SwapBuffers();
     }
 
     void PsycheWindow::SetVSync(bool enabled) {

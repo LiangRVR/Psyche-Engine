@@ -91,6 +91,7 @@ GENERATED += $(OBJDIR)/ImGuiLayer.o
 GENERATED += $(OBJDIR)/Layer.o
 GENERATED += $(OBJDIR)/LayerStack.o
 GENERATED += $(OBJDIR)/Log.o
+GENERATED += $(OBJDIR)/OpenGLContext.o
 GENERATED += $(OBJDIR)/PsycheWindow.o
 GENERATED += $(OBJDIR)/PsycheWindowInput.o
 GENERATED += $(OBJDIR)/psychepch.o
@@ -100,6 +101,7 @@ OBJECTS += $(OBJDIR)/ImGuiLayer.o
 OBJECTS += $(OBJDIR)/Layer.o
 OBJECTS += $(OBJDIR)/LayerStack.o
 OBJECTS += $(OBJDIR)/Log.o
+OBJECTS += $(OBJDIR)/OpenGLContext.o
 OBJECTS += $(OBJDIR)/PsycheWindow.o
 OBJECTS += $(OBJDIR)/PsycheWindowInput.o
 OBJECTS += $(OBJDIR)/psychepch.o
@@ -166,6 +168,9 @@ endif
 # File Rules
 # #############################################
 
+$(OBJDIR)/OpenGLContext.o: src/Platform/OpenGL/OpenGLContext.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Application.o: src/Psyche/Application.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) -include $(PCH_PLACEHOLDER) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
