@@ -78,6 +78,8 @@
     "Dloadproc",
     "Framebuffer",
     "OPENGL",
+    "Programiv",
+    "Shaderiv",
     "spdlog"
   ],
   "makefile.launchConfigurations": [
@@ -87,5 +89,6 @@
       "binaryPath": "${workspaceFolder}/bin/Debug-linux-x86_64/Sandbox/Sandbox",
       "binaryArgs": []
     }
-  ]
+  ],
+  "C_Cpp.default.compilerPath": "/usr/bin/clang++"
 }

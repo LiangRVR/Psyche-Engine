@@ -15,7 +15,6 @@
             "forcedInclude": [
                 "${workspaceFolder}/Psyche/src/psychepch.h"
             ],
-            "compilerPath": "/usr/bin/clang",
             "intelliSenseMode": "clang-x64",
             "cStandard": "c17",
             "cppStandard": "c++17"
