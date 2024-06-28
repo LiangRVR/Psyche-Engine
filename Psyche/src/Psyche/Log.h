@@ -21,11 +21,11 @@ namespace Psyche {
 #define PSC_CORE_INFO(...)  ::Psyche::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define PSC_CORE_WARN(...)  ::Psyche::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define PSC_CORE_ERROR(...) ::Psyche::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define PSC_CORE_FATAL(...) ::Psyche::Log::GetCoreLogger()->critical(_ARGS__)
+#define PSC_CORE_CRITICAL(...) ::Psyche::Log::GetCoreLogger()->critical(_ARGS__)
 
 // Client logs macros
 #define PSC_TRACE(...) ::Psyche::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define PSC_INFO(...)  ::Psyche::Log::GetClientLogger()->info(__VA_ARGS__)
 #define PSC_WARN(...)  ::Psyche::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define PSC_ERROR(...) ::Psyche::Log::GetClientLogger()->error(__VA_ARGS__)
-#define PSC_FATAL(...) ::Psyche::Log::GetClientLogger()->critical(__VA_ARGS__)
+#define PSC_CRITICAL(...) ::Psyche::Log::GetClientLogger()->critical(__VA_ARGS__)
