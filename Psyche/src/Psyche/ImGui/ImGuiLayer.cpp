@@ -13,7 +13,7 @@
 namespace Psyche {
     ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
 
-    ImGuiLayer::~ImGuiLayer() {}
+    ImGuiLayer::~ImGuiLayer() = default;
 
     void ImGuiLayer::OnAttach() {
         // Setup Dear ImGui context

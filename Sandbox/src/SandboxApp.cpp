@@ -36,7 +36,7 @@ class Sandbox : public Psyche::Application {
         PushLayer(new ExampleLayer());
     }
 
-    ~Sandbox() {}
+    ~Sandbox() = default;
 };
 
 Psyche::Application *Psyche::CreateApplication() { return new Sandbox(); }
