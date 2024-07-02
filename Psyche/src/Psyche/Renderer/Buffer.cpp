@@ -8,11 +8,10 @@
 namespace Psyche {
     VertexBuffer *VertexBuffer::Create(float *vertices, uint32_t size) {
         switch (Renderer::GetAPI()) {
-        case RendererAPI::None:
-            PSC_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
-            return nullptr;
-        case RendererAPI::OpenGL:
-            return new OpenGLVertexBuffer(vertices, size);
+            case RendererAPI::None:
+                PSC_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
+                return nullptr;
+            case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
         }
 
         PSC_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -21,11 +20,10 @@ namespace Psyche {
 
     IndexBuffer *IndexBuffer::Create(uint32_t *indices, uint32_t size) {
         switch (Renderer::GetAPI()) {
-        case RendererAPI::None:
-            PSC_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
-            return nullptr;
-        case RendererAPI::OpenGL:
-            return new OpenGLIndexBuffer(indices, size);
+            case RendererAPI::None:
+                PSC_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
+                return nullptr;
+            case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, size);
         }
 
         PSC_CORE_ASSERT(false, "Unknown RendererAPI!");
