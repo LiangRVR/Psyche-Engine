@@ -20,15 +20,19 @@ project "Sandbox"
 		"%{wks.location}/Psyche/vendor"
 	}
 
-	links	{
+	libdirs {
+		"%{LibDirs.GLFW}"
+	}
+
+	links {
 		"Psyche"
 	}
 
 	filter "system:linux"
-		--[[ buildoptions {"-fdeclspec", "-fPIC"} ]]
+	--[[ buildoptions {"-fdeclspec", "-fPIC"} ]]
 		defines {"PSC_PLATFORM_LINUX"}
-		links{
-			"GLFW",
+		links {
+			"glfw3",
 			"Glad",
 			"ImGui"
 		}

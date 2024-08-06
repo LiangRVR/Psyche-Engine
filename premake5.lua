@@ -24,8 +24,10 @@ IncludeDir["Glad"] = "%{wks.location}/Psyche/vendor/Glad/include/"
 IncludeDir["ImGui"] = "%{wks.location}/Psyche/vendor/imgui/"
 IncludeDir["glm"] = "%{wks.location}/Psyche/vendor/glm/"
 
+LibDirs = {}
+LibDirs["GLFW"] = "%{wks.location}/Psyche/vendor/GLFW/build/src/"
+
 group "Dependencies"
-	include "Psyche/vendor/GLFW"
 	include "Psyche/vendor/Glad"
 	include "Psyche/vendor/imgui"
 group ""

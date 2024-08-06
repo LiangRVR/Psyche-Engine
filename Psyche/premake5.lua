@@ -32,8 +32,12 @@ project "Psyche"
 		"%{IncludeDir.glm}"
 	}
 
+	libdirs {
+		"%{LibDirs.GLFW}"
+	}
+
 	links {
-		"GLFW",
+		"glfw3",
 		"Glad",
 		"ImGui"
 	}
